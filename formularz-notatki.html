@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
 <title>Formularz notatki po wizycie</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b6b5f'/%3E%3Crect x='9' y='9' width='14' height='2.4' rx='1.2' fill='%23fff'/%3E%3Crect x='9' y='15' width='14' height='2.4' rx='1.2' fill='%23fff'/%3E%3Crect x='9' y='21' width='9' height='2.4' rx='1.2' fill='%23fff'/%3E%3C/svg%3E">
 <style>
 :root{--fg:#1f2328;--muted:#57606a;--accent:#0b6b5f;--soft:#f3f7f6;--line:#d9e0e3}
 *{box-sizing:border-box}
@@ -16,19 +18,23 @@ ul,ol{padding-left:1.3rem}
 li{margin:.35rem 0}
 a{color:var(--accent)}
 .pole{margin:.4rem 0;padding:.6rem .8rem;background:var(--soft);border:1px solid var(--line);border-radius:8px}
-.pole strong{display:block}
-.linia{display:block;height:1.55em;border-bottom:1px dotted var(--muted)}
+.pole label{display:block;font-weight:600}
+.pole textarea{display:block;width:100%;min-height:2.1em;margin-top:.15rem;padding:.15rem 0;border:0;border-bottom:1px dotted var(--muted);background:transparent;color:inherit;font:inherit;resize:vertical;field-sizing:content}
+.pole textarea:focus{outline:2px solid var(--accent);outline-offset:2px;border-bottom-color:var(--accent)}
+.hint{display:block;margin-top:.35rem;font-size:.9rem;color:var(--muted)}
+.potw{display:flex;gap:.6rem;align-items:flex-start;margin:1rem 0;padding:.7rem .8rem;background:var(--soft);border:1px solid var(--line);border-radius:8px}
+.potw input{margin:.25rem 0 0;flex:0 0 auto}
 .note{font-size:.92rem;color:var(--muted)}
 footer{margin-top:3rem;padding-top:1rem;border-top:1px solid var(--line);font-size:.92rem;color:var(--muted)}
 @media (max-width:520px){body{font-size:16px}main{padding:1.5rem 1rem 3rem}}
-@media print{.powrot,footer{display:none}body{font-size:11pt}.pole{background:#fff;page-break-inside:avoid}}
+@media print{.powrot,footer{display:none}body{font-size:11pt}.pole,.potw{background:#fff;page-break-inside:avoid}.pole textarea{border-bottom:1px solid #000;resize:none;overflow:visible}}
 </style>
 </head>
 <body>
 <main>
 
 <h1>Formularz notatki po wizycie</h1>
-<p>Ta notatka jest mi potrzebna po to, żeby wygenerować z niej <strong>przykładową opinię i zestaw ćwiczeń</strong> — i żebyś ocenił, czy nadają się do wysłania po drobnej korekcie. Wystarczą 2–3 zdania o wizycie, bez danych pacjenta.</p>
+<p>Ta notatka jest mi potrzebna po to, żeby wygenerować z niej <strong>przykładową opinię i zestaw ćwiczeń</strong> — i żeby ocenić, czy nadają się do wysłania po drobnej korekcie. Wystarczą 2–3 zdania o wizycie, bez danych pacjenta.</p>
 
 <h2>Zanim wypełnisz</h2>
 <ul>
@@ -36,34 +42,48 @@ footer{margin-top:3rem;padding-top:1rem;border-top:1px solid var(--line);font-si
 <li><strong>Bez danych pacjenta:</strong> bez imienia, nazwiska, daty urodzenia, nazwy placówki, danych kontaktowych.</li>
 <li><strong>Własnymi słowami</strong> — to notatka, nie dokument. Nie musi być formalnie.</li>
 <li>Możesz pominąć wszystko, czego nie chcesz ujawniać — np. kontekst rodzinny.</li>
-<li>Możesz wypełnić w edytorze tekstu albo <strong>wydrukować tę stronę</strong> i wypełnić ręcznie.</li>
+<li><strong>Wypełnij pola bezpośrednio na tej stronie.</strong> Nic nie wysyła się samo — treść zostaje w Twojej przeglądarce, dopóki samodzielnie jej nie skopiujesz i nie odeślesz.</li>
+<li>Wolisz na papierze? Wypełnij pola, a potem <strong>wydrukuj stronę</strong> (Ctrl+P) — albo wydrukuj pustą i wypełnij ręcznie.</li>
 </ul>
 
 <h2>Notatka nr 1</h2>
-<p class="pole"><strong>1. Wiek dziecka (bez imienia)</strong><span class="linia"></span></p>
-<p class="pole"><strong>2. Obszar diagnozy</strong><span class="linia"></span></p>
-<p class="pole"><strong>3. Przebieg wizyty — 2–3 zdania własnymi słowami</strong><span class="linia"></span><span class="linia"></span></p>
-<p class="pole"><strong>4. Postęp od poprzedniej wizyty (jeśli dotyczy)</strong><span class="linia"></span></p>
-<p class="pole"><strong>5. Czego nie chcesz ujawniać (np. kontekst rodzinny)</strong><span class="linia"></span></p>
+<p class="pole"><label for="n1-wiek">1. Wiek pacjenta (bez imienia, np. „5 lat”)</label><textarea id="n1-wiek" rows="1"></textarea></p>
+<p class="pole"><label for="n1-obszar">2. Obszar diagnozy</label><textarea id="n1-obszar" rows="1"></textarea></p>
+<p class="pole"><label for="n1-przebieg">3. Przebieg wizyty — 2–3 zdania własnymi słowami</label><textarea id="n1-przebieg" rows="3"></textarea><span class="hint">Co robiliście na zajęciach, jak poszło, co zalecasz do domu.</span></p>
+<p class="pole"><label for="n1-postep">4. Postęp od poprzedniej wizyty (jeśli dotyczy)</label><textarea id="n1-postep" rows="1"></textarea></p>
+<p class="pole"><label for="n1-pomin">5. Czego nie chcesz ujawniać (np. kontekst rodzinny)</label><textarea id="n1-pomin" rows="1"></textarea></p>
 
-<h2>Notatka nr 2 i nr 3</h2>
-<p>Powtórz te same pięć punktów dla kolejnych wizyt. W edytorze tekstu wystarczy skopiować blok powyżej.</p>
+<h2>Notatka nr 2</h2>
+<p class="pole"><label for="n2-wiek">1. Wiek pacjenta</label><textarea id="n2-wiek" rows="1"></textarea></p>
+<p class="pole"><label for="n2-obszar">2. Obszar diagnozy</label><textarea id="n2-obszar" rows="1"></textarea></p>
+<p class="pole"><label for="n2-przebieg">3. Przebieg wizyty — 2–3 zdania własnymi słowami</label><textarea id="n2-przebieg" rows="3"></textarea></p>
+<p class="pole"><label for="n2-postep">4. Postęp od poprzedniej wizyty (jeśli dotyczy)</label><textarea id="n2-postep" rows="1"></textarea></p>
+<p class="pole"><label for="n2-pomin">5. Czego nie chcesz ujawniać</label><textarea id="n2-pomin" rows="1"></textarea></p>
+
+<h2>Notatka nr 3</h2>
+<p class="pole"><label for="n3-wiek">1. Wiek pacjenta</label><textarea id="n3-wiek" rows="1"></textarea></p>
+<p class="pole"><label for="n3-obszar">2. Obszar diagnozy</label><textarea id="n3-obszar" rows="1"></textarea></p>
+<p class="pole"><label for="n3-przebieg">3. Przebieg wizyty — 2–3 zdania własnymi słowami</label><textarea id="n3-przebieg" rows="3"></textarea></p>
+<p class="pole"><label for="n3-postep">4. Postęp od poprzedniej wizyty (jeśli dotyczy)</label><textarea id="n3-postep" rows="1"></textarea></p>
+<p class="pole"><label for="n3-pomin">5. Czego nie chcesz ujawniać</label><textarea id="n3-pomin" rows="1"></textarea></p>
+<p class="note">Jeśli opisujesz tylko jedną wizytę — zostaw pozostałe bloki puste, to nie problem.</p>
 
 <h2>Dwie liczby, o które jeszcze pytam</h2>
 <ol>
-<li><strong>Ile minut piszesz taką opinię ręcznie, od zera?</strong> .......... min</li>
-<li><strong>Ile minut piszesz zestaw ćwiczeń do domu ręcznie?</strong> .......... min</li>
+<li><strong>Ile minut piszesz ręcznie opinię logopedyczną (do poradni, szkoły lub sądu), od zera?</strong> .......... min</li>
+<li><strong>Ile minut piszesz ręcznie zestaw ćwiczeń do domu?</strong> .......... min</li>
 </ol>
 <p class="note">Bez tych dwóch liczb nie da się uczciwie powiedzieć, czy narzędzie cokolwiek oszczędza — porównuję je z czasem redakcji gotowego tekstu.</p>
+<p class="potw"><input type="checkbox" id="potw"><label for="potw">Potwierdzam, że notatka nie zawiera danych pacjenta: imienia, nazwiska, daty urodzenia, nazwy placówki ani danych kontaktowych.</label></p>
 
 <h2>Co dalej</h2>
-<p>Odeślij wypełnioną notatkę tam, gdzie dostałeś link do tej strony (mail albo wiadomość). Wygeneruję z niej opinię i ćwiczenia, odeślę Ci je, a Ty zmierzysz stoperem, ile zajęła Ci ich redakcja, i zaznaczysz swoje poprawki.</p>
+<p>Skopiuj wypełnione pola (albo wydrukuj stronę) i odeślij notatkę w odpowiedzi na wiadomość, w której pojawił się link do tej strony. Wygeneruję z niej opinię i ćwiczenia, odeślę Ci je, a Ty zmierzysz stoperem, ile zajęła Ci ich redakcja, i zaznaczysz swoje poprawki.</p>
 <p class="note">Notatka jest anonimowa i służy wyłącznie do sprawdzenia jakości generowania dokumentacji. Nie pokazuję Twoich notatek nikomu ani nie publikuję ich bez Twojej zgody. Na Twoje życzenie usuwam je po zakończeniu testu.</p>
 
 <p class="powrot"><a href="./">← wróć do strony o narzędziu</a></p>
 
 <footer>
-<p>Strona statyczna — nie zbiera żadnych danych i nic nie wysyła w tle. Nie zawiera treści pacjentów.</p>
+<p>Strona statyczna — nie ma kont, bazy danych ani wysyłania czegokolwiek w tle. To, co wpiszesz, zostaje w Twojej przeglądarce, dopóki samodzielnie tego nie skopiujesz i nie odeślesz.</p>
 </footer>
 
 </main>
